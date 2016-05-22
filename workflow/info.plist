@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>org.infernus.alfred.lightwaverf</string>
+	<key>connections</key>
+	<dict>
+		<key>0B68E870-D2B2-48F4-9370-40F557EA5D75</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>88A398B7-79AF-42F7-A895-47487C0552BB</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>38FD199A-44C2-4521-829F-6B47F57CC458</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>5620B30E-B431-427A-AA7B-8EB56C29D3EF</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>48099051-4E43-4265-8651-D292E1238BF0</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>0B68E870-D2B2-48F4-9370-40F557EA5D75</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>5620B30E-B431-427A-AA7B-8EB56C29D3EF</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F4D109A8-2264-442C-A9F5-7AE41E5E62F8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>D2C248AC-DCBE-4159-9BBF-1833EB5D412E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>48099051-4E43-4265-8651-D292E1238BF0</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>F4D109A8-2264-442C-A9F5-7AE41E5E62F8</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D2C248AC-DCBE-4159-9BBF-1833EB5D412E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>James Shiell</string>
+	<key>description</key>
+	<string>Control Lightwave RF devices via lightwaverf Gem</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>LightwaveRF</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>lightwaverf</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Finding devices</string>
+				<key>script</key>
+				<string>require 'yaml'
+require 'json'
+
+CONFIG_FILE = "#{ENV['HOME']}/lightwaverf-config.yml"
+
+output = {:items =&gt; []}
+
+if File.exists?(CONFIG_FILE)
+	config = YAML.load_file(CONFIG_FILE)
+	output[:items] = config['room'].map do |room|
+		{
+			:uid =&gt; room['name'],
+			:title =&gt; room['name'],
+			:arg =&gt; room['name']
+		}
+	end
+end
+
+puts JSON.generate(output)
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>LightwaveRF</string>
+				<key>type</key>
+				<integer>2</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>38FD199A-44C2-4521-829F-6B47F57CC458</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>variables</key>
+				<dict>
+					<key>room</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>5620B30E-B431-427A-AA7B-8EB56C29D3EF</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>lwdimmers</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Loading devices</string>
+				<key>script</key>
+				<string>require 'yaml'
+require 'json'
+
+CONFIG_FILE = "#{ENV['HOME']}/lightwaverf-config.yml"
+
+room_name = ARGV[0]
+output = {:items =&gt; []}
+
+if room_name &amp;&amp; File.exists?(CONFIG_FILE)
+	config = YAML.load_file(CONFIG_FILE)
+	room_and_devices = config['room'].select {|room| room['name'] == room_name}.first
+
+	output[:items] = room_and_devices['device'].select {|device| device['type'] == 'D'}.map do |device|
+		{
+			:uid =&gt; device['id'],
+			:title =&gt; device['name'],
+			:arg =&gt; "#{room_name}:#{device['name']}"
+		}
+	end
+end
+
+puts JSON.generate(output)</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>LightwaveRF Dimmers</string>
+				<key>type</key>
+				<integer>2</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>F4D109A8-2264-442C-A9F5-7AE41E5E62F8</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>variables</key>
+				<dict>
+					<key>room_and_device</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>D2C248AC-DCBE-4159-9BBF-1833EB5D412E</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>lfaction</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>require 'yaml'
+require 'json'
+
+CONFIG_FILE = "#{ENV['HOME']}/lightwaverf-config.yml"
+
+room_name, device_name = ARGV[0].split(':')
+
+output = { :items =&gt; [
+	{
+		:uid =&gt; 'on',
+		:title =&gt; 'Turn On',
+		:arg =&gt; "#{room_name}:#{device_name}:on"
+	},
+	{
+		:uid =&gt; 'off',
+		:title =&gt; 'Turn Off',
+		:arg =&gt; "#{room_name}:#{device_name}:off"
+	}
+	
+]}
+
+puts JSON.generate(output)</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string></string>
+				<key>type</key>
+				<integer>2</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>48099051-4E43-4265-8651-D292E1238BF0</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>/usr/bin/ruby -I./bundle ./send_command.rb "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>./send_command.rb</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>88A398B7-79AF-42F7-A895-47487C0552BB</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>variables</key>
+				<dict>
+					<key>action</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>0B68E870-D2B2-48F4-9370-40F557EA5D75</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Allows control of LightwaveRF dimmers.</string>
+	<key>uidata</key>
+	<dict>
+		<key>0B68E870-D2B2-48F4-9370-40F557EA5D75</key>
+		<dict>
+			<key>xpos</key>
+			<integer>580</integer>
+			<key>ypos</key>
+			<integer>480</integer>
+		</dict>
+		<key>38FD199A-44C2-4521-829F-6B47F57CC458</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>130</integer>
+		</dict>
+		<key>48099051-4E43-4265-8651-D292E1238BF0</key>
+		<dict>
+			<key>xpos</key>
+			<integer>370</integer>
+			<key>ypos</key>
+			<integer>450</integer>
+		</dict>
+		<key>5620B30E-B431-427A-AA7B-8EB56C29D3EF</key>
+		<dict>
+			<key>xpos</key>
+			<integer>250</integer>
+			<key>ypos</key>
+			<integer>160</integer>
+		</dict>
+		<key>88A398B7-79AF-42F7-A895-47487C0552BB</key>
+		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
+			<key>ypos</key>
+			<integer>450</integer>
+		</dict>
+		<key>D2C248AC-DCBE-4159-9BBF-1833EB5D412E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>410</integer>
+			<key>ypos</key>
+			<integer>310</integer>
+		</dict>
+		<key>F4D109A8-2264-442C-A9F5-7AE41E5E62F8</key>
+		<dict>
+			<key>xpos</key>
+			<integer>200</integer>
+			<key>ypos</key>
+			<integer>280</integer>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>1.0</string>
+	<key>webaddress</key>
+	<string>https://github.com/jshiell</string>
+</dict>
+</plist>
